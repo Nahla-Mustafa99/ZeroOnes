@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    - Edit The Post!
+{% endblock %}
+
+{% block main2 %}
+{% if session["user_id"] %}
+<div class="container-md shadow p-3 mb-5 bg-body rounded ">
+    <form action="/posts/edit/{{data['post_id']}}" method="post">
+        <h1 class="text-center">Edit The Post</h1>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{data['title']}}">
+          </div>
+          <div class="mb-3">
+            <label for="tag" class="form-label">Tag</label>
+            <input type="text" class="form-control" id="tag" name="tag"  value="{{data['tag']}}">
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="tcontent" name="content" rows="6" >{{data['content']}}</textarea>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-secondary" type="submit">Edit</button>
+          </div>
+        </form>
+</div>
+
+
+{% endif %}
+{% endblock %}

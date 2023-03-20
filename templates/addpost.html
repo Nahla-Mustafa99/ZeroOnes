@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    - Share Your Thoughts!
+{% endblock %}
+
+{% block main2 %}
+{% if session["user_id"] %}
+<div class="container-md shadow p-3 mb-5 bg-body rounded ">
+    <form action="/addpost" method="post">
+        <h1 class="text-center">Add A Post</h1>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+          </div>
+          <div class="mb-3">
+            <label for="tag" class="form-label">Title</label>
+            <input type="text" class="form-control" id="tag" name="tag" placeholder="Tag">
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="tcontent" name="content" rows="6"></textarea>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-secondary" type="submit">Post</button>
+          </div>
+        </form>
+</div>
+    <!-- <div class="shadow p-3 mb-5 bg-body rounded">
+    <form action="/addpost" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Title" type="text">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="email" name="email" placeholder="example@example.com" type="email">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm Your Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button> -->
+{% else %}
+    <h2>Must Be Logged In...</h2>
+    <p>Sorry, You must be logged in to access this page!</p>
+
+    <a href="/login">Login</a>
+    <p>Or<a href="/register">Join Us</a>First!</p>
+
+{% endif %}
+{% endblock %}

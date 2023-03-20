@@ -1,0 +1,82 @@
+
+{% extends 'layout.html' %}
+
+{% block main2 %}
+
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+
+{% endfor %}
+{% if session["user_id"]%}
+<h1>Profile Info </h1>
+<div class="card ">
+  <div class="card-header">
+    {{ user.name }}
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <strong>Name:</strong>
+                    {{ user.name }}<br/>
+                    <strong>Username:</strong>
+                    {{ user.name }}<br/>
+                    <strong>User Id:</strong>
+                    {{ user.id }}<br/>
+                    <strong>Email:</strong>
+                    {{ user.email }}<br/>
+
+                    <strong>Joined At:</strong>
+                    {{ user.date_joined }}<br/>
+                </div>
+                <div class="col-4">
+                    <img src="{{ url_for('static', filename='/default_profile.png')}}" width="200" align="right">
+                </div>
+            </div>
+        </div>
+    </p>
+  </div>
+</div>
+
+    <h1 class="mt-3 mb-1">Posts</h1>
+    {% for post in posts %}
+
+<div class="shadow p-3 mb-5 bg-body rounded container-md">
+	<h2><a href="{{ url_for('post', id=post.post_id)}}">{{ post.title }}</a></h2>
+	<small>By: {{ post.author }}<br/>
+		{{ post.date_posted }}</small> <br/><br/>
+	{{ post.content|safe }}
+	<br/><br/>
+	<a href="{{ url_for('post', id=post.post_id)}}" class="btn btn-outline-secondary btn-sm">View Post</a>
+
+	{% if post.author_id == session["user_id"] %}
+	 <!-- or current_user.id == 14 %} -->
+	<a href="{{ url_for('edit_post', id=post.post_id)}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+	<a href="{{ url_for('delete_post', id=post.post_id)}}" class="btn btn-outline-danger btn-sm">Delete</a>
+
+
+	{% endif %}
+
+	<br/><br/>
+</div>
+<br/>
+{% endfor %}
+
+
+
+
+
+{%else %}
+<h1>PLease Login First</h1>
+<a href="/login">Log in</a>
+<h1>if you did not register yet</h1>
+<a href="/register"></a>
+{% endif %}
+
+{% endblock %}
